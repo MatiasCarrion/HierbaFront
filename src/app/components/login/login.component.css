@@ -1,0 +1,15 @@
+/* .fondo {
+    background-image: url('./../../../assets/fondo_login.jpg');
+    background-size: cover;
+} */
+
+.form-label {
+    font-size: 1.5rem;
+    font-weight:500;
+    color: black;
+}
+
+.bot {
+    display: flex;
+    align-items: center;
+}

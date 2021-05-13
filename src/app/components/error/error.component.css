@@ -1,0 +1,14 @@
+.fondo {
+    position: relative;
+    text-align: center;
+    background-image: url('./../../../assets/error.jpg');
+    background-size: cover;
+    opacity: 0.7;
+}
+
+.text-dark {
+    position: absolute;
+    margin-top: 100px;
+    margin-left: 40px;
+    font-size: 3.5rem;
+}
