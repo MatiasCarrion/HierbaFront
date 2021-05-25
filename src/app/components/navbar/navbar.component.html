@@ -1,17 +1,3 @@
-<!-- <nav class="navbar navbar-expand-lg  fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand ms-4" routerLink="/home">HIERBA BUENA</a>
-
-        <div class="d-flex" id="navbarNavAltMarkup">
-            <div class="navbar-nav me-4">
-                <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
-                <a class="nav-link active" routerLink="" routerLinkActive="active">Stock</a>
-                <a class="nav-link active" routerLink="" routerLinkActive="active">Carga de stock</a>
-            </div>
-        </div>
-    </div>
-</nav> -->
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container container-fluid">
       <a class="navbar-brand" routerLink="/home">HIERBA BUENA</a>
@@ -20,15 +6,23 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+          <ng-container *ngIf="_usuariosService.loggedIn()">
+          <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/consultaStock" routerLinkActive="active">Stock</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/home" routerLinkActive="active">Carga de stock</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">Venta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="" routerLinkActive="active" (click)="_usuariosService.logout()">Salir</a>
+          </li>
+        </ng-container>
         </ul>
       </div>
     </div>

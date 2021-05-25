@@ -1,3 +1,8 @@
 .form-label {
     font-size: 1.7rem;
 }
+
+.btn:hover {
+    background-color: rgb(86, 241, 86);
+    border-color: rgb(86, 241, 86);
+}

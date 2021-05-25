@@ -1,14 +1,14 @@
-export class Stock {
+export class Producto {
     id: number;
     nombre: String;
     categoria: String;
-    stock: number;
+    cantidad: number;
 
 
-constructor (id:number,nombre:String,categoria:String,stock:number){
+constructor (id:number,nombre:String,categoria:String,cantidad:number){
     this.id = id;
     this.nombre = nombre;
     this.categoria = categoria;
-    this.stock = stock;
+    this.cantidad = cantidad;
     }    
 }
