@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // componentes
 import { AppComponent } from './app.component';
@@ -25,6 +26,8 @@ import { TokenService } from './servicios/token.service'
 import { AuthGuard } from './guards/auth.guard';
 import { TokenInterceptorService } from './servicios/token-interceptor.service';
 import { PopupAgregarProdComponent } from './components/popup-agregar-prod/popup-agregar-prod.component';
+import { VentaComponent } from './components/venta/venta.component';
+import { VentaService } from './servicios/venta.service';
 
 @NgModule({
   declarations: [
@@ -36,15 +39,17 @@ import { PopupAgregarProdComponent } from './components/popup-agregar-prod/popup
     HomeComponent,
     ConsultaStockComponent,
     FilterPipe,
-    PopupAgregarProdComponent
+    PopupAgregarProdComponent,
+    VentaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
-  providers: [StockService, UsuariosService, TokenService, AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}],
+  providers: [StockService, UsuariosService, TokenService, AuthGuard, VentaService,{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

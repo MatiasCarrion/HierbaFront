@@ -26,16 +26,21 @@
       </thead>
 
       <tbody class="contenido">
-        <tr *ngFor="let prod of listaProd | filter:filterProd">
+        <tr *ngFor="let prod of listaProd | filter:filterProd"
+          [ngClass]="prod.stock === 0 ? 'table-danger' : 'contenido'">
           <th scope="row">{{ prod.id }}</th>
           <td>{{ prod.nombre }}</td>
           <td>{{ prod.categoria }}</td>
           <td>{{ prod.stock }}</td>
-          <td><button class="btn btn-ligth btn-sm">
-            <i class="fas fa-cart-plus"></i>
-          </button></td>
+          <td>
+            <!-- <button class="btn btn-ligth btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <i class="fas fa-cart-plus"></i>
+            </button> -->
+            <button class="btn btn-ligth btn-sm" (click)="abrirModal(prod, prodModal)">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </td>
         </tr>
-
       </tbody>
     </table>
 
@@ -44,5 +49,60 @@
   <div class="row">
 
   </div>
+
+
+  <!-- Modal -->
+  <ng-template #prodModal>
+        <div class="modal-header modal-dialog-centered">
+          <h2 class="modal-title" id="staticBackdropLabel">Detalle de producto</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h3>Producto</h3>
+          <h6 class="detalle">{{ unProd.nombre }}</h6>
+          <br>
+          <h3>Categoria</h3>
+          <h6 class="detalle">{{ unProd.categoria }}</h6>
+          <br>
+          <h3>Stock Disponible</h3>
+          <h6 class="detalle">{{ unProd.stock }}</h6>
+          <br>
+          <h3>Cantidad (elegir): </h3>
+            <h6 class="detalle producto">{{ cantidad }}
+            <i class="fas fa-arrow-alt-circle-up mas" (click)="sumar(unProd.stock)"></i>
+            <i class="fas fa-arrow-alt-circle-down menos" (click)="restar()"></i>
+          </h6>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+          <button type="button" class="btn btn-primary btn-lg" (click)="agregar()">Agregar</button>
+        </div>
+</ng-template>
+
+
+
+<!-- 
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Agregar al carrito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ -->
+
 
 </div>

@@ -1,0 +1,15 @@
+.title {
+    margin-top: 50px;
+}
+.btnBot{
+    margin-top: 10px;
+}
+
+.modBtn:hover {
+    font-size: 120%;
+}
+
+.delBtn:hover {
+    font-size: 120%;
+    color: red;
+}

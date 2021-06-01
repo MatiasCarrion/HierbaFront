@@ -6,3 +6,34 @@
     background-color: rgb(86, 241, 86);
     border-color: rgb(86, 241, 86);
 }
+
+.detalle {
+    color: grey ;
+}
+
+.producto {
+    font-size: 1.5rem;
+}
+
+/* .modal-title {
+    color: blue;
+} */
+
+.mas {
+    padding-left: 7px;
+    padding-right: 2px;
+    cursor: pointer;
+}
+
+.menos {
+    cursor: pointer;
+}
+
+.mas:hover {
+    color: green;
+    font-size: 110%;
+}
+.menos:hover {
+    color: red;
+    font-size: 110%;
+}
