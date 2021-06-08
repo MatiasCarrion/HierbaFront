@@ -3,12 +3,16 @@ export class Producto {
     private _nombre: String; 
     private _categoria: String;
     private _stock: number;
+    private _precioCompra: number;
+    private _precioVenta: number;    
     
-constructor (id:number,nombre:String,categoria:String,cantidad:number){
+constructor (id:number,nombre:String,categoria:String,cantidad:number,precioCompra:number,precioVenta:number){
     this._id = id;
     this._nombre = nombre;
     this._categoria = categoria;
     this._stock = cantidad;
+    this._precioCompra = precioCompra;
+    this._precioVenta = precioVenta;
     }  
     
     public get id(): number {
@@ -36,6 +40,20 @@ constructor (id:number,nombre:String,categoria:String,cantidad:number){
     }
     public set stock(value: number) {
         this._stock = value;
+    }
+
+    public get precioCompra(): number {
+        return this._precioCompra;
+    }
+    public set precioCompra(value: number) {
+        this._precioCompra = value;
+    }
+
+    public get precioVenta(): number {
+        return this._precioVenta;
+    }
+    public set precioVenta(value: number) {
+        this._precioVenta = value;
     }
 
 }

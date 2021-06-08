@@ -12,7 +12,9 @@
                     <th scope="col">Item N°</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Categoria</th>
-                    <th scope="col">Stock</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio Unitario</th>
+                    <th scope="col">Precio Final</th>
                     <th scope="col">Modificar</th>
                     <th scope="col">Eliminar</th>
                 </tr>
@@ -24,6 +26,8 @@
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.categoria }}</td>
                     <td>{{ item.stock }}</td>
+                    <td>${{ item.precioVenta }}</td>
+                    <td>${{ item.precioVenta * item.stock }}</td>
                     <td>
 
                         <button class="btn btn-ligth btn-sm">
@@ -32,7 +36,7 @@
                     </td>
                     <td>
 
-                        <button class="btn btn-ligth btn-sm">
+                        <button class="btn btn-ligth btn-sm" (click)="borrarItem(i)">
                             <i class="fas fa-trash-alt delBtn"></i>
                         </button>
                     </td>
@@ -41,6 +45,51 @@
         </table>
 
     </div>
+
+
+    <form class="row g-3 border">
+        <h4 class="text-center">Aplicar descuento por</h4>
+
+        <div class="col col-lg-6 offset-4 input-group mb-3">
+            <input type="checkbox" class="form-check" id="porc" name="chPorc"> Porcentaje General 
+            <input type="checkbox" class="form-check" id="imp" name="chImp"> Importe Final 
+        </div>
+
+        <div class="col col-lg-4 offset-2">
+            <label for="porcGen" class="form-label">Porcentaje General</label>
+            <input type="number" min="0" max="100" step="5" value="5" class="form-control inp" id="porcGen">
+        </div>
+
+        <div class="col col-lg-4">
+            <label for="impFinal" class="form-label">Importe Final</label>
+            <input type="number" min="0" step="100" class="form-control inp" id="impFinal">
+        </div>
+
+    </form>
+
+
+    <div class="row">
+        <div class="col col-lg-4">
+            <br>
+            <h4>Datos Envío:</h4>
+            <br>
+            Retira en tienda <input type="checkbox">
+            Envío Incluido <input type="checkbox">
+            Destinatario: <input type="text">
+            Calle: <input type="text">
+            Número: <input type="text">
+            Barrio: <input type="text">
+            Localidad: <input type="text">
+            Provincia: <input type="text">
+            Código Postal: <input type="text">
+
+
+        </div>
+
+
+
+    </div>
+
 
     <div *ngIf="listaItems.length > 0" class="row">
 

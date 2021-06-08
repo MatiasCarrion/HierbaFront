@@ -39,7 +39,7 @@ export class ConsultaStockComponent implements OnInit {
   abrirModal(producto: Producto, modal: any) {
     this.unProd = producto;
     this.modal = this.modalService.open(modal, { size: 'lg' });
-    this.cantidad = 0;
+    this.cantidad = 1;
   }
 
   sumar(stock: number) {
@@ -54,7 +54,7 @@ export class ConsultaStockComponent implements OnInit {
   }
 
   agregar() {
-    const item = new Producto(this.unProd.id, this.unProd.nombre, this.unProd.categoria, this.cantidad);
+    const item = new Producto(this.unProd.id, this.unProd.nombre, this.unProd.categoria, this.cantidad, this.unProd.precioCompra, this.unProd.precioVenta);
     if (item.stock > 0) {
       this._VentaService.agregar(item);
     }

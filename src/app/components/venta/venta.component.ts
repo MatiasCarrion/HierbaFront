@@ -16,6 +16,8 @@ listaItems = this._VentaService.listaItems;
   ngOnInit(): void {
   }
 
-
+  borrarItem(index: number): void {
+    this.listaItems.splice(index,1);
+  }
 
 }

@@ -21,6 +21,7 @@
           <th scope="col">Nombre</th>
           <th scope="col">Categoria</th>
           <th scope="col">Stock</th>
+          <th scope="col">Precio</th>
           <th scope="col">Agregar</th>
         </tr>
       </thead>
@@ -32,6 +33,7 @@
           <td>{{ prod.nombre }}</td>
           <td>{{ prod.categoria }}</td>
           <td>{{ prod.stock }}</td>
+          <td>${{ prod.precioVenta }}</td>
           <td>
             <!-- <button class="btn btn-ligth btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               <i class="fas fa-cart-plus"></i>
@@ -66,6 +68,9 @@
           <br>
           <h3>Stock Disponible</h3>
           <h6 class="detalle">{{ unProd.stock }}</h6>
+          <br>
+          <h3>Precio unitario</h3>
+          <h6 class="detalle">${{ unProd.precioVenta }}</h6>
           <br>
           <h3>Cantidad (elegir): </h3>
             <h6 class="detalle producto">{{ cantidad }}
