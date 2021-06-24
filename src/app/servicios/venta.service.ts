@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Producto } from '../models/producto';
+import { ProductoStock } from '../models/productoStock';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VentaService {
 
-  listaItems: Producto[] = [];
+  listaItems: ProductoStock[] = [];
 
   constructor() { }
 
-  agregar(item: Producto) {
+  agregar(item: ProductoStock) {
     this.listaItems.push(item);
     console.log(this.listaItems)
   }

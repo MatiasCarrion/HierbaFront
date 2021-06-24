@@ -13,6 +13,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { HomeComponent } from './components/home/home.component';
 import { ConsultaStockComponent } from './components/consulta-stock/consulta-stock.component';
+import { ProductoNuevoComponent } from './components/producto-nuevo/producto-nuevo.component';
+import { PopupAgregarProdComponent } from './components/popup-agregar-prod/popup-agregar-prod.component';
 
 //pipe
 import { FilterPipe } from './pipes/filter.pipe';
@@ -25,7 +27,6 @@ import { TokenService } from './servicios/token.service'
 //guards
 import { AuthGuard } from './guards/auth.guard';
 import { TokenInterceptorService } from './servicios/token-interceptor.service';
-import { PopupAgregarProdComponent } from './components/popup-agregar-prod/popup-agregar-prod.component';
 import { VentaComponent } from './components/venta/venta.component';
 import { VentaService } from './servicios/venta.service';
 
@@ -40,7 +41,8 @@ import { VentaService } from './servicios/venta.service';
     ConsultaStockComponent,
     FilterPipe,
     PopupAgregarProdComponent,
-    VentaComponent
+    VentaComponent,
+    ProductoNuevoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,11 @@
-import { Producto } from './producto';
+import { ProductoStock } from './productoStock';
 
 export class Venta {
     id: number;
-    producto: Producto[] = [];
+    producto: ProductoStock[] = [];
 
 
-constructor (id:number, producto:Producto){
+constructor (id:number, producto:ProductoStock){
     this.id = id;
     this.producto = this.producto;
     }    

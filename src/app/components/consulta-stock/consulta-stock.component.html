@@ -1,10 +1,7 @@
-<div class="container mt-5">
+<div class="container">
 
-  <div class="row">
 
-  </div>
-
-  <div class="row mt-5">
+  <div class="row mt-2">
 
     <div class="col col-lg-6 offset-4 mx-1">
       <div class="mb-3">
@@ -22,7 +19,7 @@
           <th scope="col">Categoria</th>
           <th scope="col">Stock</th>
           <th scope="col">Precio</th>
-          <th scope="col">Agregar</th>
+          <th scope="col">Acción</th>
         </tr>
       </thead>
 
@@ -34,12 +31,13 @@
           <td>{{ prod.categoria }}</td>
           <td>{{ prod.stock }}</td>
           <td>${{ prod.precioVenta }}</td>
-          <td>
-            <!-- <button class="btn btn-ligth btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <td class="linea">
+            <button class="btn btn-ligth btn-sm" (click)="abrirModalAgregar(prod, modalAgregar)">
               <i class="fas fa-cart-plus"></i>
-            </button> -->
-            <button class="btn btn-ligth btn-sm" (click)="abrirModal(prod, prodModal)">
-              <i class="fas fa-cart-plus"></i>
+            </button>
+
+            <button class="btn btn-ligth btn-sm" (click)="abrirModalSumarStock(prod, modalSumarStock)">
+              <i class="fas fa-plus-circle"></i>
             </button>
           </td>
         </tr>
@@ -54,60 +52,64 @@
 
 
   <!-- Modal -->
-  <ng-template #prodModal>
-        <div class="modal-header modal-dialog-centered">
-          <h2 class="modal-title" id="staticBackdropLabel">Detalle de producto</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <h3>Producto</h3>
-          <h6 class="detalle">{{ unProd.nombre }}</h6>
-          <br>
-          <h3>Categoria</h3>
-          <h6 class="detalle">{{ unProd.categoria }}</h6>
-          <br>
-          <h3>Stock Disponible</h3>
-          <h6 class="detalle">{{ unProd.stock }}</h6>
-          <br>
-          <h3>Precio unitario</h3>
-          <h6 class="detalle">${{ unProd.precioVenta }}</h6>
-          <br>
-          <h3>Cantidad (elegir): </h3>
-            <h6 class="detalle producto">{{ cantidad }}
-            <i class="fas fa-arrow-alt-circle-up mas" (click)="sumar(unProd.stock)"></i>
-            <i class="fas fa-arrow-alt-circle-down menos" (click)="restar()"></i>
-          </h6>
-        </div>
-        <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-          <button type="button" class="btn btn-primary btn-lg" (click)="agregar()">Agregar</button>
-        </div>
-</ng-template>
+  <ng-template #modalAgregar>
+    <div class="modal-header modal-dialog-centered">
+      <h2 class="modal-title" id="staticBackdropLabel">Agregar al carrito</h2>
+      <button type="button" class="btn-close" (click)="cerrarAgregar()"></button>
+    </div>
+    <div class="modal-body">
+      <h3>Producto</h3>
+      <h6 class="detalle">{{ unProd.nombre }}</h6>
+      <br>
+      <h3>Categoria</h3>
+      <h6 class="detalle">{{ unProd.categoria }}</h6>
+      <br>
+      <h3>Stock Disponible</h3>
+      <h6 class="detalle">{{ unProd.stock }}</h6>
+      <br>
+      <h3>Precio unitario</h3>
+      <h6 class="detalle">${{ unProd.precioVenta }}</h6>
+      <br>
+      <h3>Cantidad (elegir): </h3>
+      <h6 class="detalle producto">{{ cantidad }}
+        <i class="fas fa-arrow-alt-circle-up mas" (click)="sumar(unProd.stock)"></i>
+        <i class="fas fa-arrow-alt-circle-down menos" (click)="restar()"></i>
+      </h6>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-lg" (click)="cerrarAgregar()">Cerrar</button>
+      <button type="button" class="btn btn-primary btn-lg" (click)="agregar()">Agregar</button>
+    </div>
+  </ng-template>
 
 
-
-<!-- 
-
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Agregar al carrito</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
-        </div>
+  <ng-template #modalSumarStock>
+    <div class="modal-header modal-dialog-centered">
+      <h2 class="modal-title" id="staticBackdropLabel">Sumar al stock</h2>
+      <button type="button" class="btn-close" (click)="cerrarStock()"></button>
+    </div>
+    <div class="modal-body">
+      <h3>Producto</h3>
+      <h6 class="detalle">{{ unProd.nombre }}</h6>
+      <br>
+      <h3>Categoria</h3>
+      <h6 class="detalle">{{ unProd.categoria }}</h6>
+      <br>
+      <h3>Stock Disponible</h3>
+      <h6 class="detalle">{{ unProd.stock }}</h6>
+      <br>
+      <h3>Precio unitario</h3>
+      <h6 class="detalle">${{ unProd.precioVenta }}</h6>
+      <br>
+      <div class="col col-4 linea">
+        <h3> Cantidad: </h3>
+        <input [(ngModel)]="cantStock" type="number" class="form-control form-control-md text-center fs-5 fw-bold"
+          min="1">
       </div>
     </div>
-  </div>
-
- -->
-
-
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-lg" (click)="cerrarStock()">Cerrar</button>
+      <button type="button" class="btn btn-primary btn-lg" (click)="gestorAgregarStock()">Agregar</button>
+    </div>
+  </ng-template>
 </div>

@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
-import { Router } from '@angular/router'
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario'
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
 
-  constructor(private http: HttpClient, private router:Router) { }
+  usuario: any;
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   //ruta de la api
-  url = '/api/user/signin';
+  url = '/api/user';
+  urlSignIn = '/api/user/signin';
 
   // post user
   signIn(user: any) {
-    return this.http.post<any>(this.url, user);
+    return this.http.post<any>(this.urlSignIn, user);
+  }
+
+  getUser(user: string) {
+    return this.http.get(this.url + '/' + user);
   }
 
   loggedIn() {
-    if (localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       return true
     }
     else {

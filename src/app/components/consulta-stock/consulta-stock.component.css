@@ -5,6 +5,8 @@
 .btn:hover {
     background-color: rgb(86, 241, 86);
     border-color: rgb(86, 241, 86);
+    color: black;
+    font-weight: 600;
 }
 
 .detalle {
@@ -15,9 +17,6 @@
     font-size: 1.5rem;
 }
 
-/* .modal-title {
-    color: blue;
-} */
 
 .mas {
     padding-left: 7px;
@@ -36,4 +35,18 @@
 .menos:hover {
     color: red;
     font-size: 110%;
+}
+
+.linea {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-header {
+    background-color: rgb(182, 180, 180);
+}
+
+.modal-footer {
+    background-color: rgb(182, 180, 180);
 }

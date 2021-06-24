@@ -1,12 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container container-fluid">
-      <a class="navbar-brand" routerLink="/home">HIERBA BUENA</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <ng-container *ngIf="_usuariosService.loggedIn()">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <div class="container container-fluid">
+    <a class="navbar-brand" routerLink="/home">HIERBA BUENA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <ng-container *ngIf="_usuariosService.loggedIn()">
           <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
           </li> -->
@@ -14,16 +15,16 @@
             <a class="nav-link" routerLink="/consultaStock" routerLinkActive="active">Stock</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/home" routerLinkActive="active">Carga de stock</a>
+            <a class="nav-link" routerLink="/productoNuevo" routerLinkActive="active">Producto Nuevo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/venta" routerLinkActive="active">Venta</a>
+            <a class="nav-link" routerLink="/presupuesto" routerLinkActive="active">Presupuesto</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="" routerLinkActive="active" (click)="_usuariosService.logout()">Salir</a>
+            <a class="nav-link" routerLink="" routerLinkActive="active" (click)="salir()">Salir</a>
           </li>
         </ng-container>
-        </ul>
-      </div>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>

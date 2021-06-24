@@ -1,0 +1,55 @@
+<div class="col-8 offset-2 mt-5">
+
+    <h1> Carga de Producto Nuevo </h1>
+
+    <div class="form border" [(ngModel)]="listadoCategorias">
+        <!-- nombre -->
+        <div class="mb-3 ps-3 pe-3 pt-3">
+            <label for="nombre" class="form-label fs-4"> Producto </label>
+            <input type="text" class="form-control form-control-lg" id="nombre" placeholder="Nombre producto"
+                [(ngModel)]="nombreProducto" required>
+        </div>
+        <!-- categoria y cantidad -->
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3 ps-3 pe-3 pt-3">
+                    <label for="cat" class="form-label fs-4"> Categoria </label>
+                    <select class="form-select form-select-lg" id="cat" [(ngModel)]="idSeleccionado" required>
+                        <option *ngFor="let categoria of listadoCategorias" value="{{ categoria.id }}"> {{
+                            categoria.nombre }} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="stock" class="form-label input-group fs-4"> Stock </label>
+                    <input type="number" class="form-control form-control-lg" id="stock" placeholder="1"
+                        [(ngModel)]="stock" min="0" required>
+                </div>
+            </div>
+        </div>
+        <!-- precioCompra y venta -->
+        <div class="row">
+            <div class="col-6">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="precioCompra" class="form-label input-group fs-4"> Precio de Compra </label>
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control form-control-lg" id="precioCompra" placeholder="0,00"
+                        [(ngModel)]="precioCompra" min="0" required>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="precioVenta" class="form-label input-group fs-4"> Precio de Venta </label>
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control form-control-lg" id="precioVenta" placeholder="0,00"
+                        [(ngModel)]="precioVenta" min="0" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 p-2 d-grid gap-2">
+            <button type="button" class="btn btn-success btn-lg" (click)="gestorNuevoProducto()"> Cargar </button>
+        </div>
+    </div>
+</div>
