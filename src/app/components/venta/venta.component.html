@@ -1,10 +1,10 @@
-<div *ngIf="listaItems.length > 0" class="container mt-5">
-
+<div class="container mt-1">
+    <!-- *ngIf="listaItems.length > 0" -->
     <div class="row">
         <h1 class='title'>Carrito actual</h1>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-3">
 
         <table class="table table-striped table-hover table-sm">
             <thead>
@@ -30,7 +30,7 @@
                     <td>${{ item.precioVenta * item.stock }}</td>
                     <td>
 
-                        <button class="btn btn-ligth btn-sm">
+                        <button class="btn btn-ligth btn-sm" (click)="modificarItem(item)">
                             <i class="fas fa-edit modBtn"></i>
                         </button>
                     </td>
@@ -45,55 +45,196 @@
         </table>
 
     </div>
+    <form class="row g-3 border mt-5">
+        <h4 class="text-center">Resumen</h4>
+        <div class="row mt-4">
+            <div class="col-lg-2 offset-4">
+                <h5> Total parcial </h5>
+            </div>
+            <div class="col-lg-2">
+                <h5 class="fs-4"> ${{ precioTotal }} </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 offset-4">
+                <h5> Descuento </h5>
+            </div>
+            <div class="col-lg-2">
+                <h5 class="fs-4"> ${{ montoDescuento }} </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 offset-4">
+                <h5> Total Final </h5>
+            </div>
+            <div class="col-lg-2">
+                <h5 class="fs-3"> $ {{ precioConDescuento }} </h5>
+            </div>
+        </div>
+    </form>
 
-
-    <form class="row g-3 border">
+    <form class="row g-3 border mt-3">
         <h4 class="text-center">Aplicar descuento por</h4>
 
-        <div class="col col-lg-6 offset-4 input-group mb-3">
-            <input type="checkbox" class="form-check" id="porc" name="chPorc"> Porcentaje General 
-            <input type="checkbox" class="form-check" id="imp" name="chImp"> Importe Final 
+        <div class="col col-lg-2 offset-4 form-check">
+            <input type="checkbox" class="form-check-input" id="porc" name="chPorc" (click)="checkPorc($event)">
+            <label class="form-check-label" [ngClass]="check_porcentaje ? 'fw-bold' : 'fw-normal'">
+                Porcentaje General
+            </label>
+        </div>
+        <div class="col col-lg-2 form-check">
+            <input type="checkbox" class="form-check-input" id="imp" name="chImp" (click)="checkImp($event)">
+            <label class="form-check-label" [ngClass]="check_importe ? 'fw-bold' : 'fw-normal'">
+                Importe Final
+            </label>
         </div>
 
-        <div class="col col-lg-4 offset-2">
-            <label for="porcGen" class="form-label">Porcentaje General</label>
-            <input type="number" min="0" max="100" step="5" value="5" class="form-control inp" id="porcGen">
+        <div class="col col-lg-4 offset-4" *ngIf="check_porcentaje && !check_importe">
+            <!-- <label for="porcGen" class="form-label">Porcentaje General</label> -->
+            <div class="input-group mb-3">
+                <input type="number" min="0" max="100" step="5" (change)="tomarDescuento($event)" class="form-control inp" id="porcGen">
+            </div>
         </div>
 
-        <div class="col col-lg-4">
-            <label for="impFinal" class="form-label">Importe Final</label>
-            <input type="number" min="0" step="100" class="form-control inp" id="impFinal">
+        <div class="col col-lg-4 offset-4" *ngIf="!check_porcentaje && check_importe">
+            <!-- <label for="impFinal" class="form-label">Importe Final</label> -->
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="number" min="0" step="100" class="form-control inp" id="impFinal" (change)="tomarDescuento($event)">
+            </div>
         </div>
 
     </form>
 
+    <form class="row g-3 border mt-3 mb-5">
+        <h4 class="text-center">Datos Envío:</h4>
 
-    <div class="row">
-        <div class="col col-lg-4">
-            <br>
-            <h4>Datos Envío:</h4>
-            <br>
-            Retira en tienda <input type="checkbox">
-            Envío Incluido <input type="checkbox">
-            Destinatario: <input type="text">
-            Calle: <input type="text">
-            Número: <input type="text">
-            Barrio: <input type="text">
-            Localidad: <input type="text">
-            Provincia: <input type="text">
-            Código Postal: <input type="text">
+        <div class="col col-lg-2 offset-4 form-check">
+            <input type="checkbox" class="form-check-input" id="checkRT" name="checkRT" (click)="checkRT($event)"
+                checked=true>
+            <label class="form-check-label" [ngClass]="check_retiro_tienda ? 'fw-bold' : 'fw-normal'">
+                Retira en tienda
+            </label>
+        </div>
+        <div class="col col-lg-2 form-check">
+            <input type="checkbox" class="form-check-input" id="checkEI" name="checkEI" (click)="checkEI($event)">
+            <label class="form-check-label" [ngClass]="check_envio_incluido ? 'fw-bold' : 'fw-normal'">
+                Envío Incluido
+            </label>
+        </div>
+        <div class="col col-lg-2 form-check">
+            <input type="checkbox" class="form-check-input" id="checkEC" name="checkEC" (click)="checkEC($event)">
+            <label class="form-check-label" [ngClass]="check_envio_cliente ? 'fw-bold' : 'fw-normal'">
+                Envío a cargo del cliente
+            </label>
+        </div>
+
+        <div class="row" *ngIf="!check_retiro_tienda">
+
+            <div class="col-4">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="provincia" class="form-label input-group fs-5"> Provincia </label>
+                    <!-- <input type="text" class="form-control form-control-lg" id="provincia" [(ngModel)]="provincia"
+                        required> -->
+                    <select class="form-select form-select-lg" id="provincia" required>
+                        <option *ngFor="let provincia of listadoProvincias" value="{{ provincia.id }}">
+                            {{ provincia.nombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="localidad" class="form-label input-group fs-5"> Localidad </label>
+                    <!-- <input type="text" class="form-control form-control-lg" id="localidad" [(ngModel)]="localidad"
+                        required> -->
+                    <select class="form-select form-select-lg" id="provincia" required>
+                        <option *ngFor="let localidad of listadoLocalidades" value="{{ localidad.id }}">
+                            {{ localidad.nombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="barrio" class="form-label input-group fs-5"> Barrio </label>
+                    <input type="text" class="form-control form-control-lg" id="barrio" [(ngModel)]="barrio">
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="row" *ngIf="!check_retiro_tienda">
+
+            <div class="col-6">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="calle" class="form-label input-group fs-5"> Calle </label>
+                    <input type="text" class="form-control form-control-lg" id="calle"
+                        placeholder="Avenida siempre viva" [(ngModel)]="calle" required>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="altura" class="form-label input-group fs-5"> Altura </label>
+                    <input type="number" class="form-control form-control-lg" id="altura" placeholder="1234"
+                        [(ngModel)]="altura" required>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="codigo_postal" class="form-label input-group fs-5"> Código Postal </label>
+                    <input type="number" class="form-control form-control-lg" id="codigo_postal" placeholder="1234"
+                        [(ngModel)]="codigo_postal" required>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" *ngIf="!check_retiro_tienda">
+            <div class="col-2">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="departamento" class="form-label input-group fs-5"> Departamento </label>
+                    <input type="text" class="form-control form-control-lg" id="departamento" placeholder="2B"
+                        [(ngModel)]="departamento">
+                </div>
+            </div>
+
+            <div class="col-10">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="observaciones" class="form-label input-group fs-5"> Observaciones </label>
+                    <!-- <input type="text" class="form-control form-control-lg" id="observaciones"
+                            placeholder="Casa con rejas.." [(ngModel)]="observaciones" height="100px"> -->
+
+                    <textarea class="form-control" id="observaciones" placeholder="Casa con rejas.."
+                        [(ngModel)]="observaciones"></textarea>
+                </div>
+
+
+            </div>
+
 
 
         </div>
 
 
 
-    </div>
+
+    </form>
 
 
-    <div *ngIf="listaItems.length > 0" class="row">
 
-        <button class="btn btn-secondary btn-lg btnBot"> Generar presupuesto </button>
+
+    <div class="row">
+        <!-- *ngIf="listaItems.length > 0" -->
+        <button class="btn btn-secondary btn-lg btnBot" (click)="generarPDF()"> Generar presupuesto </button>
 
         <button class="btn btn-success btn-lg btnBot"> Procesar venta </button>
     </div>
+
+
+</div>

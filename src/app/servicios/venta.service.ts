@@ -7,6 +7,7 @@ import { ProductoStock } from '../models/productoStock';
 export class VentaService {
 
   listaItems: ProductoStock[] = [];
+  precioTotal: number = 0;
 
   constructor() { }
 
@@ -15,6 +16,10 @@ export class VentaService {
     console.log(this.listaItems)
   }
 
-
+  sumaPrecio() {
+    for (let item of this.listaItems) {
+      this.precioTotal += (item.precioVenta * item.stock);
+    }
+  }
 
 }

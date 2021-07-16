@@ -4,15 +4,18 @@ export class ProductoStock {
     private _categoria: String;
     private _stock: number;
     private _precioCompra: number;
-    private _precioVenta: number;    
+    private _precioVenta: number;
+    private _stockMaximo: number;   
     
-constructor (id:number,nombre:String,categoria:String,cantidad:number,precioCompra:number,precioVenta:number){
+    
+constructor (id:number,nombre:String,categoria:String,cantidad:number,precioCompra:number,precioVenta:number, stockMax:number){
     this._id = id;
     this._nombre = nombre;
     this._categoria = categoria;
     this._stock = cantidad;
     this._precioCompra = precioCompra;
     this._precioVenta = precioVenta;
+    this._stockMaximo = stockMax;
     }  
     
     public get id(): number {
@@ -55,6 +58,11 @@ constructor (id:number,nombre:String,categoria:String,cantidad:number,precioComp
     public set precioVenta(value: number) {
         this._precioVenta = value;
     }
-
+    public get stockMaximo(): number {
+        return this._stockMaximo;
+    }
+    public set stockMaximo(value: number) {
+        this._stockMaximo = value;
+    }
 }
 

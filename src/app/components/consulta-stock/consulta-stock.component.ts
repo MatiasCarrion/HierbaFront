@@ -77,7 +77,7 @@ export class ConsultaStockComponent implements OnInit {
   }
 
   agregar() {
-    const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, this.cantidad, this.unProd.precioCompra, this.unProd.precioVenta);
+    const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, this.cantidad, this.unProd.precioCompra, this.unProd.precioVenta, this.unProd.stock);
     if (item.stock > 0) {
       this._VentaService.agregar(item);
       this.mensajeExito();
@@ -116,7 +116,7 @@ export class ConsultaStockComponent implements OnInit {
       catch (error) {
         console.log(error);
       }
-      let producto = this.crearInstancia();
+      let producto = await this.crearInstancia();
       try {
         await this.agregarStock(producto);
       }
@@ -152,9 +152,10 @@ export class ConsultaStockComponent implements OnInit {
 
   crearInstancia(): ProductoStock {
     const nuevoStock = this.unProd.stock + this.cantStock;
-    const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, nuevoStock, this.unProd.precioCompra, this.unProd.precioVenta);
+    const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, nuevoStock, this.unProd.precioCompra, this.unProd.precioVenta,this.unProd.stock);
     return item;
   }
+
 
   agregarStock(item: ProductoStock) {
     console.log('Esperando respuesta del servidor...');

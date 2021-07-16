@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ConsultaStockComponent } from './components/consulta-stock/consulta-stock.component';
 import { ProductoNuevoComponent } from './components/producto-nuevo/producto-nuevo.component';
 import { PopupAgregarProdComponent } from './components/popup-agregar-prod/popup-agregar-prod.component';
+import { VentaComponent } from './components/venta/venta.component';
 
 //pipe
 import { FilterPipe } from './pipes/filter.pipe';
@@ -23,12 +24,12 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { StockService } from './servicios/stock.service';
 import { UsuariosService } from './servicios/usuarios.service'
 import { TokenService } from './servicios/token.service'
+import { VentaService } from './servicios/venta.service';
+import { UbicacionesService } from './servicios/ubicaciones.service';
 
 //guards
 import { AuthGuard } from './guards/auth.guard';
 import { TokenInterceptorService } from './servicios/token-interceptor.service';
-import { VentaComponent } from './components/venta/venta.component';
-import { VentaService } from './servicios/venta.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { VentaService } from './servicios/venta.service';
     FormsModule,
     NgbModule
   ],
-  providers: [StockService, UsuariosService, TokenService, AuthGuard, VentaService,{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}],
+  providers: [StockService, UsuariosService, TokenService, AuthGuard, VentaService, UbicacionesService, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
