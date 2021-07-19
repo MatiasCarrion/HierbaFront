@@ -16,6 +16,7 @@ export class StockService {
   urlCategorias = '/api/stock/categorias';
   urlNuevoProducto = '/api/stock/nuevoProducto';
   urlLogProducto = '/api/stock/logProducto';
+  urlUPDStock = '/api/stock/updStockVenta';
 
 
   unProd!: ProductoStock;
@@ -33,6 +34,10 @@ export class StockService {
 
   alterStock(datos: ProductoStock) {
     return this.http.post(this.urlAlterStock, datos);
+  }
+
+  updStockVenta(datos: any) {
+    return this.http.post(this.urlUPDStock, datos);
   }
 
   getCategorias() {

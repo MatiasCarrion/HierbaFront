@@ -6,7 +6,7 @@
 
     <div class="row mt-3">
 
-        <table class="table table-striped table-hover table-sm">
+        <table class="table table-striped table-hover table-sm" id="tablaCarrito">
             <thead>
                 <tr>
                     <th scope="col">Item N°</th>
@@ -42,10 +42,30 @@
                     </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                <th></th>
+                <th></th>
+                <th> Monto parcial </th>
+                <th> ${{ precioTotal }} </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th> Monto Descuento </th>
+                <th> ${{ montoDescuento }} </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th> Monto final </th>
+                <th> ${{ precioConDescuento }} </th>
+            </tr>
+            </tfoot>
         </table>
 
     </div>
-    <form class="row g-3 border mt-5">
+    <!-- <form class="row g-3 border mt-5">
         <h4 class="text-center">Resumen</h4>
         <div class="row mt-4">
             <div class="col-lg-2 offset-4">
@@ -71,7 +91,7 @@
                 <h5 class="fs-3"> $ {{ precioConDescuento }} </h5>
             </div>
         </div>
-    </form>
+    </form> -->
 
     <form class="row g-3 border mt-3">
         <h4 class="text-center">Aplicar descuento por</h4>
@@ -92,7 +112,8 @@
         <div class="col col-lg-4 offset-4" *ngIf="check_porcentaje && !check_importe">
             <!-- <label for="porcGen" class="form-label">Porcentaje General</label> -->
             <div class="input-group mb-3">
-                <input type="number" min="0" max="100" step="5" (change)="tomarDescuento($event)" class="form-control inp" id="porcGen">
+                <input type="number" min="0" max="100" step="5" (change)="tomarDescuento($event)"
+                    class="form-control inp" id="porcGen">
             </div>
         </div>
 
@@ -100,12 +121,57 @@
             <!-- <label for="impFinal" class="form-label">Importe Final</label> -->
             <div class="input-group mb-3">
                 <span class="input-group-text">$</span>
-                <input type="number" min="0" step="100" class="form-control inp" id="impFinal" (change)="tomarDescuento($event)">
+                <input type="number" min="0" step="100" class="form-control inp" id="impFinal"
+                    (change)="tomarDescuento($event)">
             </div>
         </div>
 
     </form>
 
+
+    <form class="row g-3 border mt-3 mb-5">
+        <h4 class="text-center">Datos Cliente:</h4>
+
+        <div class="row">
+
+            <div class="col-9">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="nombre" class="form-label input-group fs-5"> Nombre </label>
+                    <input type="text" class="form-control form-control-lg" name="nombre" placeholder="Carlos Sanchez"
+                        [(ngModel)]="nombre_cliente" required>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="dni" class="form-label input-group fs-5"> DNI </label>
+                    <input type="number" class="form-control form-control-lg" name="dni" placeholder="27457888"
+                        [(ngModel)]="dni_cliente">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="mail" class="form-label input-group fs-5"> Mail </label>
+                    <input type="email" class="form-control form-control-lg" name="mail"
+                        placeholder="csanchez@gmail.com" [(ngModel)]="mail_cliente">
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="input-group mb-3 ps-3 pe-3 pt-3">
+                    <label for="telefono" class="form-label input-group fs-5"> Teléfono </label>
+                    <input type="number" class="form-control form-control-lg" name="telefono" placeholder="3513147182"
+                        [(ngModel)]="telefono_cliente">
+                </div>
+            </div>
+
+
+        </div>
+
+    </form>
     <form class="row g-3 border mt-3 mb-5">
         <h4 class="text-center">Datos Envío:</h4>
 
@@ -136,9 +202,9 @@
                     <label for="provincia" class="form-label input-group fs-5"> Provincia </label>
                     <!-- <input type="text" class="form-control form-control-lg" id="provincia" [(ngModel)]="provincia"
                         required> -->
-                    <select class="form-select form-select-lg" id="provincia" required>
-                        <option *ngFor="let provincia of listadoProvincias" value="{{ provincia.id }}">
-                            {{ provincia.nombre }}
+                    <select class="form-select form-select-lg" name="prov" [(ngModel)]="provincia" required>
+                        <option *ngFor="let prov of listadoProvincias" value="{{ prov.id }}">
+                            {{ prov.nombre }}
                         </option>
                     </select>
                 </div>
@@ -148,9 +214,9 @@
                     <label for="localidad" class="form-label input-group fs-5"> Localidad </label>
                     <!-- <input type="text" class="form-control form-control-lg" id="localidad" [(ngModel)]="localidad"
                         required> -->
-                    <select class="form-select form-select-lg" id="provincia" required>
-                        <option *ngFor="let localidad of listadoLocalidades" value="{{ localidad.id }}">
-                            {{ localidad.nombre }}
+                    <select class="form-select form-select-lg" name="loc" [(ngModel)]="localidad" required>
+                        <option *ngFor="let loc of listadoLocalidades" value="{{ loc.id }}">
+                            {{ loc.nombre }}
                         </option>
                     </select>
                 </div>
@@ -158,7 +224,7 @@
             <div class="col-4">
                 <div class="input-group mb-3 ps-3 pe-3 pt-3">
                     <label for="barrio" class="form-label input-group fs-5"> Barrio </label>
-                    <input type="text" class="form-control form-control-lg" id="barrio" [(ngModel)]="barrio">
+                    <input type="text" class="form-control form-control-lg" name="barrio" [(ngModel)]="barrio">
                 </div>
             </div>
 
@@ -172,7 +238,7 @@
             <div class="col-6">
                 <div class="input-group mb-3 ps-3 pe-3 pt-3">
                     <label for="calle" class="form-label input-group fs-5"> Calle </label>
-                    <input type="text" class="form-control form-control-lg" id="calle"
+                    <input type="text" class="form-control form-control-lg" name="calle"
                         placeholder="Avenida siempre viva" [(ngModel)]="calle" required>
                 </div>
             </div>
@@ -180,7 +246,7 @@
             <div class="col-3">
                 <div class="input-group mb-3 ps-3 pe-3 pt-3">
                     <label for="altura" class="form-label input-group fs-5"> Altura </label>
-                    <input type="number" class="form-control form-control-lg" id="altura" placeholder="1234"
+                    <input type="number" class="form-control form-control-lg" name="altura" placeholder="1234"
                         [(ngModel)]="altura" required>
                 </div>
             </div>
@@ -188,7 +254,7 @@
             <div class="col-3">
                 <div class="input-group mb-3 ps-3 pe-3 pt-3">
                     <label for="codigo_postal" class="form-label input-group fs-5"> Código Postal </label>
-                    <input type="number" class="form-control form-control-lg" id="codigo_postal" placeholder="1234"
+                    <input type="number" class="form-control form-control-lg" name="codigo_postal" placeholder="1234"
                         [(ngModel)]="codigo_postal" required>
                 </div>
             </div>
@@ -199,7 +265,7 @@
             <div class="col-2">
                 <div class="input-group mb-3 ps-3 pe-3 pt-3">
                     <label for="departamento" class="form-label input-group fs-5"> Departamento </label>
-                    <input type="text" class="form-control form-control-lg" id="departamento" placeholder="2B"
+                    <input type="text" class="form-control form-control-lg" name="departamento" placeholder="2B"
                         [(ngModel)]="departamento">
                 </div>
             </div>
@@ -210,7 +276,7 @@
                     <!-- <input type="text" class="form-control form-control-lg" id="observaciones"
                             placeholder="Casa con rejas.." [(ngModel)]="observaciones" height="100px"> -->
 
-                    <textarea class="form-control" id="observaciones" placeholder="Casa con rejas.."
+                    <textarea class="form-control" name="observaciones" placeholder="Casa con rejas.."
                         [(ngModel)]="observaciones"></textarea>
                 </div>
 
@@ -233,7 +299,7 @@
         <!-- *ngIf="listaItems.length > 0" -->
         <button class="btn btn-secondary btn-lg btnBot" (click)="generarPDF()"> Generar presupuesto </button>
 
-        <button class="btn btn-success btn-lg btnBot"> Procesar venta </button>
+        <button class="btn btn-success btn-lg btnBot" (click)="generarVenta()"> Procesar venta </button>
     </div>
 
 

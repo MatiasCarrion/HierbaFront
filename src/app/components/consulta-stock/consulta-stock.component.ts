@@ -110,12 +110,12 @@ export class ConsultaStockComponent implements OnInit {
     let respuesta = await this.usuarioConfirma();
     
     if (respuesta.isConfirmed) { // si el usuario confirma la creación, creamos el producto y redirigimos al stock.
-      try {
-        await this.gestorGenerarLog();
-      }
-      catch (error) {
-        console.log(error);
-      }
+      // try {
+      //   await this.gestorGenerarLog();
+      // }
+      // catch (error) {
+      //   console.log(error);
+      // }
       let producto = await this.crearInstancia();
       try {
         await this.agregarStock(producto);
@@ -233,4 +233,5 @@ export class ConsultaStockComponent implements OnInit {
       )
     })
   }
+  
 }

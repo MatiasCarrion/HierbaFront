@@ -1,9 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { VentaService } from '../../servicios/venta.service';
+import { StockService } from '../../servicios/stock.service';
 import { UbicacionesService } from '../../servicios/ubicaciones.service';
 import { Provincia } from '../../models/provincias';
+import { Venta } from '../../models/venta';
+import { DetalleVenta } from '../../models/detalleVenta';
+import { Envio } from '../../models/envio';
 import Swal from 'sweetalert2';
-import { PdfMakeWrapper, Txt, Img, ITable, Table  } from 'pdfmake-wrapper';
+import { Router } from '@angular/router';
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
+
 
 @Component({
   selector: 'app-venta',
@@ -21,23 +28,36 @@ export class VentaComponent implements OnInit {
   check_envio_incluido: boolean = false;
   check_envio_cliente: boolean = false;
   descuento: any;
-  montoDescuento: any;
+  montoDescuento: any = 0;
   precioConDescuento: any;
+  idDetalle: any;
+  idDatosEnvio: any;
+  tipoDesc: any;
+  tipoEnvio: any;
+  objetoVenta: any;
+  objetoEnvio: any;
+  objetosDetalle: any[] = [];
   // envio
-  calle:any;
-  altura:any;
-  codigo_postal:any;
-  barrio:any;
-  localidad:any;
-  provincia:any;
-  departamento:any;
-  observaciones:any;
-  listadoProvincias:any = [];
-  listadoLocalidades:any = [];
-  arrayAux:any = [];
+  calle: any;
+  altura: any;
+  codigo_postal: any;
+  barrio: any;
+  localidad: any;
+  provincia: any;
+  departamento: any;
+  observaciones: any;
+  listadoProvincias: any = [];
+  listadoLocalidades: any = [];
+  arrayAux: any = [];
+  nombre_cliente: any;
+  dni_cliente: any;
+  telefono_cliente: any;
+  mail_cliente: any;
 
   constructor(private _VentaService: VentaService,
-              private _UbicacionesService: UbicacionesService) { }
+    private _UbicacionesService: UbicacionesService,
+    private _StockService: StockService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this._VentaService.sumaPrecio();
@@ -147,19 +167,19 @@ export class VentaComponent implements OnInit {
     }
   }
 
-  tomarDescuento(event:any){
+  tomarDescuento(event: any) {
 
     this.descuento = event.currentTarget.value;
 
     if (this.check_porcentaje) {
-      this.montoDescuento = this.precioTotal * (this.descuento/100);
+      this.montoDescuento = this.precioTotal * (this.descuento / 100);
     }
     if (this.check_importe) {
-      this.montoDescuento =  this.descuento;
+      this.montoDescuento = this.descuento;
     }
 
     this.precioConDescuento = this.precioTotal - this.montoDescuento;
-    
+
   }
 
   async modificarItem(unItem: any) {
@@ -197,59 +217,167 @@ export class VentaComponent implements OnInit {
     return respuesta;
   }
 
-  // // doctor haq
-
-  // interface DataResponse {
-  //   id: number;
-  //   nombre: string;
-  // }
-
-  // type tableRow = [number, string];
-
-  // // aux!: ITable;
-  // // array(): ITable {
-  // //   this.aux =  new Table([
-  // //     ['hola', 'mundo'], 
-  // //     ['soy', 'mati'],
-  // //     ['probando', 'PDF puto']
-  // //   ]).end;
-
-  // //   return this.aux;
-  // // }
-
-  async generarPDF(){
-    const pdf = new PdfMakeWrapper();
-    // const data = await this.fetchData();
-
-    // pdf.pageMargins(20);
-    pdf.add(await new Img('https://i.ibb.co/6B8pGSs/Header-Presupuesto.jpg').height(130).width(512).build());
-    
-    // pdf.add(this.createTable(data));
-
-    pdf.create().open();
+  generarVenta() {
+    this._VentaService.getMaxIdDetalleVenta().subscribe(
+      res => {
+        this.idDetalle = res;
+        console.log("id detalle max ==> " + this.idDetalle);
+        this._VentaService.getMaxIdDatosEnvio().subscribe(
+          res => {
+            this.idDatosEnvio = res;
+            console.log("id datos envio max ==> " + this.idDatosEnvio);
+            this.objetoVenta = this.crearInstanciaVenta();
+            console.log(this.objetoVenta);
+            this.crearInstanciasDetalles();
+            console.log(this.objetosDetalle);
+            if (!this.check_retiro_tienda) {
+              this.objetoEnvio = this.crearInstanciaEnvio();
+              console.log(this.objetoEnvio);
+            }
+            this.impactarEnBase();
+            this.impactarDetalles();
+            this.objetosDetalle = [];
+            this.impactarEnvio();
+            this.updateStock();
+            this.listaItems = [];
+            this.mensajeExito();
+            this.actualizarComponente();
+          },
+          err => console.log(err)
+        )
+      },
+      err => console.log(err)
+    )
   }
 
-  // createTable(data: DataResponse[]): ITable {
-  //   [{ }]
-  //   return new Table([
-  //     ["Item","nombre"],
-  //     ...this.extractData(data)
-  //   ]).end;
-  // }
+  crearInstanciaVenta(): Venta {
 
-  // extractData(data: DataResponse[]): TableRow[] {
-  //   return data.map(row => [row.id, row.nombre]);
-  // }
+    this.idDetalle = this.idDetalle + 1;
+    this.idDatosEnvio = this.idDatosEnvio + 1;
+    if (this.check_porcentaje) {
+      this.tipoDesc = 1;
+    }
+    if (this.check_importe) {
+      this.tipoDesc = 2;
+    }
+    if (!this.check_importe && !this.check_porcentaje) {
+      this.tipoDesc = 3;
+      this.montoDescuento = 0;
+    }
+
+    let objeto = new Venta(this.idDetalle,
+      this.idDatosEnvio,
+      this.precioTotal,
+      this.montoDescuento,
+      this.precioConDescuento,
+      this.tipoDesc,
+      this.nombre_cliente,
+      this.dni_cliente,
+      this.telefono_cliente,
+      this.mail_cliente)
+
+    return objeto;
+
+  }
+
+  crearInstanciasDetalles() {
+
+    for (let item of this.listaItems) {
+      let unObj = new DetalleVenta(this.idDetalle, item.id, item.stock, item.precioVenta)
+      this.objetosDetalle.push(unObj);
+    }
+
+  }
+
+  crearInstanciaEnvio(): Envio {
+
+    if (this.check_retiro_tienda) {
+      this.tipoEnvio = 1
+    }
+    if (this.check_envio_incluido) {
+      this.tipoEnvio = 2
+    }
+    if (this.check_envio_cliente) {
+      this.tipoEnvio = 3
+    }
 
 
-  // async fetchData(): Promise<DataResponse[]> {
-  //   const obj = JSON.parse(JSON.stringify(this.listaItems));  
-  //   console.log(obj);
-  //     return fetch(JSON.parse(obj))
-  //       .then(response => response.json())
-  //       .then(data => data.filter((_, index: number) => index < this.listaItems.length ));
-  // }
+    return new Envio(this.idDatosEnvio, this.tipoEnvio, this.provincia, this.localidad,
+      this.barrio, this.calle, this.altura, this.codigo_postal, this.departamento, this.observaciones)
 
+  }
+
+  impactarEnBase() {
+    this._VentaService.insertVenta(this.objetoVenta).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+
+
+  impactarDetalles() {
+    this._VentaService.insertDetallesVenta(this.objetosDetalle).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  impactarEnvio() {
+    this._VentaService.insertDetalleEnvio(this.objetoEnvio).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  updateStock() {
+    this._StockService.updStockVenta(this.listaItems).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  mensajeExito() {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Operación Exitosa!',
+      showConfirmButton: false,
+      timer: 1000
+    })
+  }
+  actualizarComponente() {
+    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/consultaStock']);
+    });
+  }
+
+
+  generarPDF() {
+
+    const doc = new jsPDF();
+    var img = new Image();
+    img.src = 'assets/HeadPresupuesto.jpeg';
+    doc.addImage(img, 'png', 50, 2, 120, 30);
+    autoTable(doc, {html: '#tablaCarrito', startY:40});
+    doc.save('tabla.pdf');
+
+  }
 
 }
-
