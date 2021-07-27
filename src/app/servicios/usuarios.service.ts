@@ -19,6 +19,7 @@ export class UsuariosService {
 
   // post user
   signIn(user: any) {
+    console.log(user);
     return this.http.post<any>(this.urlSignIn, user);
   }
 
