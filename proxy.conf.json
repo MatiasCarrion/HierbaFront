@@ -1,7 +1,8 @@
 {
     "/api/*": {
         "target": "https://hb-growshop-backend.herokuapp.com",
-        "secure": "false",
-        "logLevel": "debug"
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }
