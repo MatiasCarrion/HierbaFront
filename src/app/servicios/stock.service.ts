@@ -25,7 +25,7 @@ export class StockService {
   
   // get stock
   getStock() {
-    return this.http.get(this.urlStock);
+    return this.http.get(this.urlStock, { responseType: 'json' });
   }
 
   getUnProd(id: number) {
