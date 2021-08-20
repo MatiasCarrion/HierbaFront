@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { ProductoStock } from '../models/productoStock';
 import { Producto } from '../models/producto';
 import { ProductoLog } from '../models/productoLog';
@@ -9,6 +9,16 @@ import { ProductoLog } from '../models/productoLog';
 })
 export class StockService {
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      'responseType' : 'json',
+      'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Headers' : 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
+      'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS, PUT, DELETE',
+      'Allow' : 'GET, POST, OPTIONS, PUT, DELETE'
+    }),
+  };
   // ruta de la api
   urlStock = '/api/stock';
   urlUnProd = '/api/stock/';
@@ -25,7 +35,7 @@ export class StockService {
   
   // get stock
   getStock() {
-    return this.http.get(this.urlStock, { responseType: 'json' });
+    return this.http.get(this.urlStock, { ...this.httpOptions });
   }
 
   getUnProd(id: number) {
