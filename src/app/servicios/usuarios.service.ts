@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario'
 
@@ -10,6 +10,11 @@ import { Usuario } from '../models/usuario'
 export class UsuariosService {
 
   usuario: any;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -20,7 +25,7 @@ export class UsuariosService {
   // post user
   signIn(user: any) {
     console.log(user);
-    return this.http.post<any>(this.urlSignIn, user, { responseType: 'json' });
+    return this.http.post<any>(this.urlSignIn, user, { ...this.httpOptions });
   }
 
   getUser(user: string) {
