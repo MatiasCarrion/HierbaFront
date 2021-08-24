@@ -33,7 +33,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "rxjs-compat"
+           ]
           },
           "configurations": {
             "production": {
