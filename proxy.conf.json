@@ -3,6 +3,9 @@
     "target": "https://hb-growshop-backend.herokuapp.com",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
   }
 }
