@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http'
 })
 export class UbicacionesService {
 
-urlProvincias = '/api/ubicaciones/provincias';
-urlLocalidades = '/api/ubicaciones/localidades';
+urlProvincias = 'https://hb-growshop-backend.herokuapp.com/api/ubicaciones/provincias';
+urlLocalidades = 'https://hb-growshop-backend.herokuapp.com/api/ubicaciones/localidades';
 
 
   constructor(private http: HttpClient) { }

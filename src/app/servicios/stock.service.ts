@@ -20,13 +20,13 @@ export class StockService {
     }),
   };
   // ruta de la api
-  urlStock = '/api/stock';
-  urlUnProd = '/api/stock/';
-  urlAlterStock = '/api/stock/alterStock';
-  urlCategorias = '/api/stock/categorias';
-  urlNuevoProducto = '/api/stock/nuevoProducto';
-  urlLogProducto = '/api/stock/logProducto';
-  urlUPDStock = '/api/stock/updStockVenta';
+  urlStock = 'https://hb-growshop-backend.herokuapp.com/api/stock';
+  urlUnProd = 'https://hb-growshop-backend.herokuapp.com/api/stock/';
+  urlAlterStock = 'https://hb-growshop-backend.herokuapp.com/api/stock/alterStock';
+  urlCategorias = 'https://hb-growshop-backend.herokuapp.com/api/stock/categorias';
+  urlNuevoProducto = 'https://hb-growshop-backend.herokuapp.com/api/stock/nuevoProducto';
+  urlLogProducto = 'https://hb-growshop-backend.herokuapp.com/api/stock/logProducto';
+  urlUPDStock = 'https://hb-growshop-backend.herokuapp.com/api/stock/updStockVenta';
 
 
   unProd!: ProductoStock;

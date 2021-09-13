@@ -13,7 +13,7 @@ export class VentaService {
 
   listaItems: ProductoStock[] = [];
   precioTotal: number = 0;
-  urlBase = '/api/ventas';
+  urlBase = 'https://hb-growshop-backend.herokuapp.com/api/ventas';
   urlGetDetalleVenta = '/getMaxIdDetalleVenta';
   urlGetDatosEnvio = '/getMaxIdDatosEnvio';
   urlAgregarVenta = '/agregarVenta';
