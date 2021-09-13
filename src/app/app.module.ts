@@ -52,7 +52,8 @@ import { TokenInterceptorService } from './servicios/token-interceptor.service';
     FormsModule,
     NgbModule
   ],
-  providers: [StockService, UsuariosService, TokenService, AuthGuard, VentaService, UbicacionesService, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}],
+  providers: [StockService, UsuariosService, TokenService, AuthGuard, VentaService, UbicacionesService, 
+              {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

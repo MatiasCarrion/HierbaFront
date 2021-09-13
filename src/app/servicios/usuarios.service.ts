@@ -24,8 +24,8 @@ export class UsuariosService {
   constructor(private http: HttpClient, private router: Router) { }
 
   //ruta de la api
-  url = '/api/user';
-  urlSignIn = '/api/user/signin';
+  url = 'https://hb-growshop-backend.herokuapp.com/api/user';
+  urlSignIn = 'https://hb-growshop-backend.herokuapp.com/api/user/signin';
 
   // post user
   signIn(user: any) {
