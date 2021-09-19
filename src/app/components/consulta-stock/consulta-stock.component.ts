@@ -132,7 +132,8 @@ export class ConsultaStockComponent implements OnInit {
 
   async usuarioConfirma() {
     let mensaje = '<h4>Producto: </h4> <span>' + this.unProd.nombre + '</span>\
-    <h4>Items a sumar: </h4> <span>'+ this.cantStock + '</span>'
+    <h4>Items a sumar: </h4> <span>'+ this.cantStock + '</span>\
+    <h4>Precio venta: </h4> <span>'+ this.nuevoPrecioVenta + '</span>'
 
     const respuesta = await Swal.fire({
       title: 'Está usted seguro?',
@@ -157,7 +158,7 @@ export class ConsultaStockComponent implements OnInit {
     if (this.nuevoPrecioVenta = 0) {
       this.nuevoPrecioVenta = this.unProd.precioVenta;
     }
-    
+
     const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, nuevoStock, this.unProd.precioCompra, this.nuevoPrecioVenta, this.unProd.stock);
     return item;
   }
