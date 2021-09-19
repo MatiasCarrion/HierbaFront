@@ -118,6 +118,7 @@ export class ConsultaStockComponent implements OnInit {
       //   console.log(error);
       // }
       let producto = await this.crearInstancia();
+      console.log(producto);
       try {
         await this.agregarStock(producto);
       }
