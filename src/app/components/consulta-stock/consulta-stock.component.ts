@@ -156,9 +156,7 @@ export class ConsultaStockComponent implements OnInit {
   crearInstancia(): ProductoStock {
     const nuevoStock = this.unProd.stock + this.cantStock;
     console.log(this.nuevoPrecioVenta);
-    if (this.nuevoPrecioVenta = 0) {
-      this.nuevoPrecioVenta = this.unProd.precioVenta;
-    }
+    this.nuevoPrecioVenta === 0 ? this.nuevoPrecioVenta = this.unProd.precioVenta : this.nuevoPrecioVenta;
     console.log(this.nuevoPrecioVenta);
     const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, nuevoStock, this.unProd.precioCompra, this.nuevoPrecioVenta, this.unProd.stock);
     return item;
