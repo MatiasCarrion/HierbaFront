@@ -22,6 +22,7 @@ export class ConsultaStockComponent implements OnInit {
   prodMod: any;
   cantidad: number = 1;
   cantStock: number = 1;
+  nuevoPrecioVenta: number = 0;
   listaItems: ProductoStock[] = [];
   modalAgregar!: NgbModalRef;
   modalSumarStock!: NgbModalRef;
@@ -152,7 +153,8 @@ export class ConsultaStockComponent implements OnInit {
 
   crearInstancia(): ProductoStock {
     const nuevoStock = this.unProd.stock + this.cantStock;
-    const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, nuevoStock, this.unProd.precioCompra, this.unProd.precioVenta,this.unProd.stock);
+    this.nuevoPrecioVenta = 0 ? this.nuevoPrecioVenta = this.unProd.precioVenta : this.nuevoPrecioVenta;
+    const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, nuevoStock, this.unProd.precioCompra, this.nuevoPrecioVenta, this.unProd.stock);
     return item;
   }
 
@@ -185,7 +187,7 @@ export class ConsultaStockComponent implements OnInit {
       await this.insertLog(log);
     }
     catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   }
 
