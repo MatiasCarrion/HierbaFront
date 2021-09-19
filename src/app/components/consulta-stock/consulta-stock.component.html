@@ -99,11 +99,11 @@
       <h6 class="detalle">{{ unProd.stock }}</h6>
       <br>
       <div class="row">
-        <div class="col-6">
+        <div class="col col-3">
           <h3>Precio unitario</h3>
           <h6 class="detalle">${{ unProd.precioVenta }}</h6>
         </div>
-        <div class="col-6 offset-6">
+        <div class="col col-3 offset-3">
           <h3>Nuevo Precio unitario</h3>
           <input [(ngModel)]="nuevoPrecioVenta" type="number"
             class="form-control form-control-md text-center fs-5 fw-bold" min="1">
