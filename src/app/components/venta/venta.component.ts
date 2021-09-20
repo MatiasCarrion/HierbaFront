@@ -38,21 +38,21 @@ export class VentaComponent implements OnInit {
   objetoEnvio: any;
   objetosDetalle: any[] = [];
   // envio
-  calle: any;
-  altura: any;
-  codigo_postal: any;
-  barrio: any;
-  localidad: any;
-  provincia: any;
-  departamento: any;
-  observaciones: any;
+  calle: any = "Sin datos";
+  altura: any = "Sin datos";
+  codigo_postal: any = "Sin datos";
+  barrio: any = "Sin datos";
+  localidad: any = "Sin datos";
+  provincia: any = "Sin datos";
+  departamento: any = "Sin datos";
+  observaciones: any = "Sin datos";
   listadoProvincias: any = [];
   listadoLocalidades: any = [];
   arrayAux: any = [];
-  nombre_cliente: any;
-  dni_cliente: any;
-  telefono_cliente: any;
-  mail_cliente: any;
+  nombre_cliente: any = "Sin datos";
+  dni_cliente: any = 1234;
+  telefono_cliente: any = 1234;
+  mail_cliente: any = "Sin@datos";
 
   constructor(private _VentaService: VentaService,
     private _UbicacionesService: UbicacionesService,
