@@ -233,11 +233,11 @@ export class VentaComponent implements OnInit {
             if (!this.check_retiro_tienda) {
               this.objetoEnvio = this.crearInstanciaEnvio();
               console.log(this.objetoEnvio);
+              this.impactarEnvio();
             }
             this.impactarEnBase();
             this.impactarDetalles();
             this.objetosDetalle = [];
-            this.impactarEnvio();
             this.updateStock();
             this.listaItems = [];
             this.mensajeExito();
