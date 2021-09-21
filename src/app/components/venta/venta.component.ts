@@ -39,8 +39,8 @@ export class VentaComponent implements OnInit {
   objetosDetalle: any[] = [];
   // envio
   calle: any = "Sin datos";
-  altura: any = "Sin datos";
-  codigo_postal: any = "Sin datos";
+  altura: any = "1234";
+  codigo_postal: any = "1234";
   barrio: any = "Sin datos";
   localidad: any = "Sin datos";
   provincia: any = "Sin datos";
@@ -253,7 +253,7 @@ export class VentaComponent implements OnInit {
   crearInstanciaVenta(): Venta {
 
     this.idDetalle = this.idDetalle + 1;
-    this.tipoDesc === 3 ? this.idDatosEnvio = '' : this.idDatosEnvio + 1;
+    this.tipoDesc === 3 ? this.idDatosEnvio = '' : this.idDatosEnvio++;
     if (this.check_porcentaje) {
       this.tipoDesc = 1;
     }
