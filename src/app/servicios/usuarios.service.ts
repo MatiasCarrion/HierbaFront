@@ -38,7 +38,7 @@ export class UsuariosService {
   }
 
   loggedIn() {
-    if (localStorage.getItem('token')) {
+    if (sessionStorage.getItem('token')) {
       return true
     }
     else {
@@ -47,11 +47,11 @@ export class UsuariosService {
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   logout() {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.router.navigate(['']);
   }
 }

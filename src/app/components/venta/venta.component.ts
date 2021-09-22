@@ -140,7 +140,6 @@ export class VentaComponent implements OnInit {
       this.check.checked = false;
       this.check = document.getElementById("checkEC");
       this.check.checked = false;
-      console.log(this.tipoEnvio)
     }
   }
 
@@ -153,8 +152,6 @@ export class VentaComponent implements OnInit {
       this.check.checked = false;
       this.check = document.getElementById("checkEC");
       this.check.checked = false;
-      console.log(this.tipoEnvio)
-
     }
   }
 
@@ -167,8 +164,6 @@ export class VentaComponent implements OnInit {
       this.check.checked = false;
       this.check = document.getElementById("checkEI");
       this.check.checked = false;
-      console.log(this.tipoEnvio)
-
     }
   }
 
