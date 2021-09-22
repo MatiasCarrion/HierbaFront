@@ -230,11 +230,7 @@ export class VentaComponent implements OnInit {
             console.log(this.objetoVenta);
             this.crearInstanciasDetalles();
             console.log(this.objetosDetalle);
-            if (!this.check_retiro_tienda) {
-              this.objetoEnvio = this.crearInstanciaEnvio();
-              console.log(this.objetoEnvio);
-              this.impactarEnvio();
-            }
+            this.validarEnvio();
             this.impactarEnBase();
             this.impactarDetalles();
             this.updateStock();
@@ -291,20 +287,27 @@ export class VentaComponent implements OnInit {
 
   crearInstanciaEnvio(): Envio {
 
-    // if (this.check_retiro_tienda) {
-    //   this.tipoEnvio = 1
-    // }
-    // if (this.check_envio_incluido) {
-    //   this.tipoEnvio = 2
-    // }
-    // if (this.check_envio_cliente) {
-    //   this.tipoEnvio = 3
-    // }
-
+    if (this.check_retiro_tienda) {
+      this.tipoEnvio = 1
+    }
+    if (this.check_envio_incluido) {
+      this.tipoEnvio = 2
+    }
+    if (this.check_envio_cliente) {
+      this.tipoEnvio = 3
+    }
 
     return new Envio(this.idDatosEnvio, this.tipoEnvio, this.provincia, this.localidad,
       this.barrio, this.calle, this.altura, this.codigo_postal, this.departamento, this.observaciones)
 
+  }
+
+  validarEnvio() {
+    if (!this.check_retiro_tienda) {
+      this.objetoEnvio = this.crearInstanciaEnvio();
+      console.log(this.objetoEnvio);
+      this.impactarEnvio();
+    }
   }
 
   impactarEnBase() {
