@@ -237,7 +237,6 @@ export class VentaComponent implements OnInit {
             }
             this.impactarEnBase();
             this.impactarDetalles();
-            this.objetosDetalle = [];
             this.updateStock();
             this._VentaService.listaItems = [];
             this.mensajeExito();
@@ -323,6 +322,7 @@ export class VentaComponent implements OnInit {
   impactarDetalles() {
     this._VentaService.insertDetallesVenta(this.objetosDetalle).subscribe(
       res => {
+        this.objetosDetalle = [];
         console.log(res);
       },
       err => {
