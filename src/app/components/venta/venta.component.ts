@@ -53,6 +53,7 @@ export class VentaComponent implements OnInit {
   dni_cliente: any = 1234;
   telefono_cliente: any = 1234;
   mail_cliente: any = "Sin@datos";
+  nada: any;
 
   constructor(private _VentaService: VentaService,
     private _UbicacionesService: UbicacionesService,
@@ -183,7 +184,7 @@ export class VentaComponent implements OnInit {
   }
 
   async modificarItem(unItem: any) {
-    console.log(unItem);
+    // console.log(unItem);
     let cantidad = await this.usuarioModifica(unItem);
     // console.log(this.listaItems[unItem._id - 1]);
     this.listaItems[unItem._id - 1].stock = cantidad.value;
@@ -221,20 +222,20 @@ export class VentaComponent implements OnInit {
     this._VentaService.getMaxIdDetalleVenta().subscribe(
       res => {
         this.idDetalle = res;
-        console.log("id detalle max ==> " + this.idDetalle);
+        // console.log("id detalle max ==> " + this.idDetalle);
         this._VentaService.getMaxIdDatosEnvio().subscribe(
           res => {
             this.idDatosEnvio = res;
-            console.log("id datos envio max ==> " + this.idDatosEnvio);
+            // console.log("id datos envio max ==> " + this.idDatosEnvio);
             this.objetoVenta = this.crearInstanciaVenta();
-            console.log(this.objetoVenta);
+            // console.log(this.objetoVenta);
             this.crearInstanciasDetalles();
-            console.log(this.objetosDetalle);
+            // console.log(this.objetosDetalle);
             this.impactarEnBase();
             this.impactarDetalles();
             this.updateStock();
             this.validarEnvio();
-            this.objetoEnvio ? this.impactarEnvio() : console.log("no hay envio");
+            this.objetoEnvio ? this.impactarEnvio() : this.nada = 0;
             this._VentaService.listaItems = [];
             this.mensajeExito();
             this.actualizarComponente();
@@ -249,7 +250,7 @@ export class VentaComponent implements OnInit {
   crearInstanciaVenta(): Venta {
 
     this.idDetalle = this.idDetalle + 1;
-    
+
     if (this.check_retiro_tienda) {
       this.tipoEnvio = 1
     }
@@ -260,7 +261,7 @@ export class VentaComponent implements OnInit {
       this.tipoEnvio = 3
     }
     this.tipoEnvio === 1 ? this.idDatosEnvio = 0 : this.idDatosEnvio = this.idDatosEnvio + 1;
-    console.log("id envvio en creacion venta"+this.idDatosEnvio)
+    // console.log("id envvio en creacion venta"+this.idDatosEnvio)
 
     if (this.check_porcentaje) {
       this.tipoDesc = 1;
@@ -309,7 +310,7 @@ export class VentaComponent implements OnInit {
       this.tipoEnvio = 3
     }
 
-    console.log("id del objeto detalle de envio >>" + this.tipoEnvio)
+    // console.log("id del objeto detalle de envio >>" + this.tipoEnvio)
     return new Envio(this.idDatosEnvio, this.tipoEnvio, this.provincia, this.localidad,
       this.barrio, this.calle, this.altura, this.codigo_postal, this.departamento, this.observaciones)
   }
@@ -317,7 +318,7 @@ export class VentaComponent implements OnInit {
   validarEnvio() {
     if (!this.check_retiro_tienda) {
       this.objetoEnvio = this.crearInstanciaEnvio();
-      console.log(this.objetoEnvio);
+      // console.log(this.objetoEnvio);
     }
   }
 
