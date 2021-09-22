@@ -253,7 +253,7 @@ export class VentaComponent implements OnInit {
   crearInstanciaVenta(): Venta {
 
     this.idDetalle = this.idDetalle + 1;
-    this.tipoDesc === 3 ? this.idDatosEnvio = '' : this.idDatosEnvio++;
+    this.tipoDesc === 3 ? this.idDatosEnvio = '' : this.idDatosEnvio = this.idDatosEnvio + 1;
     if (this.check_porcentaje) {
       this.tipoDesc = 1;
     }
