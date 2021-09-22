@@ -249,7 +249,18 @@ export class VentaComponent implements OnInit {
   crearInstanciaVenta(): Venta {
 
     this.idDetalle = this.idDetalle + 1;
+    
+    if (this.check_retiro_tienda) {
+      this.tipoEnvio = 1
+    }
+    if (this.check_envio_incluido) {
+      this.tipoEnvio = 2
+    }
+    if (this.check_envio_cliente) {
+      this.tipoEnvio = 3
+    }
     this.tipoEnvio === 1 ? this.idDatosEnvio = 0 : this.idDatosEnvio = this.idDatosEnvio + 1;
+    console.log("id envvio en creacion venta"+this.idDatosEnvio)
 
     if (this.check_porcentaje) {
       this.tipoDesc = 1;
