@@ -33,7 +33,7 @@ export class VentaComponent implements OnInit {
   idDetalle: any;
   idDatosEnvio: any;
   tipoDesc: any;
-  tipoEnvio: any;
+  tipoEnvio: any = 1;
   objetoVenta: any;
   objetoEnvio: any;
   objetosDetalle: any[] = [];
@@ -253,6 +253,7 @@ export class VentaComponent implements OnInit {
 
     this.idDetalle = this.idDetalle + 1;
     this.tipoEnvio === 1 ? this.idDatosEnvio = 0 : this.idDatosEnvio = this.idDatosEnvio + 1;
+
     if (this.check_porcentaje) {
       this.tipoDesc = 1;
     }
@@ -290,15 +291,15 @@ export class VentaComponent implements OnInit {
 
   crearInstanciaEnvio(): Envio {
 
-    if (this.check_retiro_tienda) {
-      this.tipoEnvio = 1
-    }
-    if (this.check_envio_incluido) {
-      this.tipoEnvio = 2
-    }
-    if (this.check_envio_cliente) {
-      this.tipoEnvio = 3
-    }
+    // if (this.check_retiro_tienda) {
+    //   this.tipoEnvio = 1
+    // }
+    // if (this.check_envio_incluido) {
+    //   this.tipoEnvio = 2
+    // }
+    // if (this.check_envio_cliente) {
+    //   this.tipoEnvio = 3
+    // }
 
 
     return new Envio(this.idDatosEnvio, this.tipoEnvio, this.provincia, this.localidad,
