@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   singIn() {
     this._UsuariosService.signIn(this.user).subscribe(
       res => {
-        localStorage.setItem('token', res.token);
+        sessionStorage.setItem('token', res.token);
         this.procesoExitoso();
       },
       err => console.log(err)

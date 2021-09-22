@@ -140,6 +140,7 @@ export class VentaComponent implements OnInit {
       this.check.checked = false;
       this.check = document.getElementById("checkEC");
       this.check.checked = false;
+      console.log(this.tipoEnvio)
     }
   }
 
@@ -152,6 +153,8 @@ export class VentaComponent implements OnInit {
       this.check.checked = false;
       this.check = document.getElementById("checkEC");
       this.check.checked = false;
+      console.log(this.tipoEnvio)
+
     }
   }
 
@@ -164,6 +167,8 @@ export class VentaComponent implements OnInit {
       this.check.checked = false;
       this.check = document.getElementById("checkEI");
       this.check.checked = false;
+      console.log(this.tipoEnvio)
+
     }
   }
 
@@ -252,7 +257,7 @@ export class VentaComponent implements OnInit {
   crearInstanciaVenta(): Venta {
 
     this.idDetalle = this.idDetalle + 1;
-    this.tipoEnvio === 1 ? this.idDatosEnvio = '' : this.idDatosEnvio = this.idDatosEnvio + 1;
+    this.tipoEnvio === 1 ? this.idDatosEnvio = 0 : this.idDatosEnvio = this.idDatosEnvio + 1;
     if (this.check_porcentaje) {
       this.tipoDesc = 1;
     }
