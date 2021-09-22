@@ -35,7 +35,7 @@ export class VentaComponent implements OnInit {
   tipoDesc: any;
   tipoEnvio: any = 1;
   objetoVenta: any;
-  objetoEnvio: any;
+  objetoEnvio: any = null;
   objetosDetalle: any[] = [];
   // envio
   calle: any = "Sin datos";
@@ -230,10 +230,11 @@ export class VentaComponent implements OnInit {
             console.log(this.objetoVenta);
             this.crearInstanciasDetalles();
             console.log(this.objetosDetalle);
-            this.validarEnvio();
             this.impactarEnBase();
             this.impactarDetalles();
             this.updateStock();
+            this.validarEnvio();
+            this.objetoEnvio ? this.impactarEnvio() : console.log("no hay envio");
             this._VentaService.listaItems = [];
             this.mensajeExito();
             this.actualizarComponente();
@@ -297,16 +298,15 @@ export class VentaComponent implements OnInit {
       this.tipoEnvio = 3
     }
 
+    console.log("id del objeto detalle de envio >>" + this.tipoEnvio)
     return new Envio(this.idDatosEnvio, this.tipoEnvio, this.provincia, this.localidad,
       this.barrio, this.calle, this.altura, this.codigo_postal, this.departamento, this.observaciones)
-
   }
 
   validarEnvio() {
     if (!this.check_retiro_tienda) {
       this.objetoEnvio = this.crearInstanciaEnvio();
       console.log(this.objetoEnvio);
-      this.impactarEnvio();
     }
   }
 
