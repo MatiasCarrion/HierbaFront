@@ -82,6 +82,7 @@ export class ConsultaStockComponent implements OnInit {
     const item = new ProductoStock(this.unProd.id, this.unProd.nombre, this.unProd.categoria, this.cantidad, this.unProd.precioCompra, this.unProd.precioVenta, this.unProd.stock);
     if (item.stock > 0) {
       this._VentaService.agregar(item);
+      this.actualizarMontoTotalCarrito();
       this.mensajeExito();
     }
     this.modalAgregar.close();
@@ -241,5 +242,9 @@ export class ConsultaStockComponent implements OnInit {
   actualizarMontoTotalCarrito() {
     this._VentaService.sumaPrecio();
     this.montoCarrito = this._VentaService.precioTotal;
+  }
+
+  resetCarrito() {
+    this._VentaService.listaItems = [];
   }
 }

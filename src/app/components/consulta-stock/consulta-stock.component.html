@@ -13,10 +13,10 @@
 
     <div class="col-lg-4 offset-6" *ngIf="montoCarrito > 0">
       <div class="col-2">
-      <p class="fs-3"[(ngModel)]="actualizarMontoTotalCarrito()">Monto presupuestado $ {{ montoCarrito }}</p>
+      <p class="fs-3"[(ngModel)]="actualizarMontoTotalCarrito()">Monto presupuestado <span class="fs-3 fw-bolder">$ {{ montoCarrito }}</span></p>
     </div>
     <div class="col-2 offset-2">
-      <button class="btn btn-lg btn-information"> Reset &nbsp; <i class="fas fa-cart-plus"></i> </button>
+      <button class="btn btn-lg btn-information" (click)="resetCarrito()"> Reset &nbsp; <i class="fas fa-cart-plus"></i> </button>
     </div>
   </div>
 
