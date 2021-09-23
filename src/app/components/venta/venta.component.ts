@@ -390,7 +390,7 @@ export class VentaComponent implements OnInit {
     const doc = new jsPDF();
     var img = new Image();
     img.src = 'assets/HeadPresupuesto.jpeg';
-    doc.addImage(img, 'png', 50, 2, 120, 30);
+    doc.addImage(img, 'png', 8, 0, 200, 290);
     autoTable(doc, {html: '#tablaCarrito', startY:40});
     doc.save('tabla.pdf');
 
