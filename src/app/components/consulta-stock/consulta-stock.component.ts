@@ -37,6 +37,7 @@ export class ConsultaStockComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarProductos();
+    this.actualizarMontoTotalCarrito();
   }
 
   listarProductos() {
@@ -246,5 +247,7 @@ export class ConsultaStockComponent implements OnInit {
 
   resetCarrito() {
     this._VentaService.listaItems = [];
-  }
+    this._VentaService.precioTotal = 0;
+    this.actualizarComponente();
+   }
 }

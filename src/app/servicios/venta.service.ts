@@ -24,7 +24,7 @@ export class VentaService {
 
   agregar(item: ProductoStock) {
     this.listaItems.push(item);
-    console.log(this.listaItems)
+    // console.log(this.listaItems)
   }
 
   sumaPrecio() {
