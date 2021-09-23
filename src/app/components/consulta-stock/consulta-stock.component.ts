@@ -27,6 +27,7 @@ export class ConsultaStockComponent implements OnInit {
   modalAgregar!: NgbModalRef;
   modalSumarStock!: NgbModalRef;
   datosProducto: any;
+  montoCarrito: any;
 
   constructor(private _StockService: StockService,
     private _VentaService: VentaService,
@@ -237,4 +238,8 @@ export class ConsultaStockComponent implements OnInit {
     })
   }
   
+  actualizarMontoTotalCarrito() {
+    this._VentaService.sumaPrecio();
+    this.montoCarrito = this._VentaService.precioTotal;
+  }
 }

@@ -61,13 +61,16 @@ export class VentaComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this._VentaService.sumaPrecio();
-    this.precioTotal = this._VentaService.precioTotal;
+    this.actualizarMontoTotalCarrito();
     this.precioConDescuento = this.precioTotal;
     this.llenarListadoProvincias();
     this.llenarListadoLocalidades();
   }
 
+  actualizarMontoTotalCarrito() {
+    this._VentaService.sumaPrecio();
+    this.precioTotal = this._VentaService.precioTotal;
+  }
   // async llenarListadoProvincias() {
   //   this.arrayAux = await this.traerProvincias();
   //   for (let e of this.arrayAux) {
@@ -386,7 +389,6 @@ export class VentaComponent implements OnInit {
 
 
   generarPDF() {
-
     const doc = new jsPDF();
     var img = new Image();
     img.src = 'assets/HeadPresupuesto.jpeg';
